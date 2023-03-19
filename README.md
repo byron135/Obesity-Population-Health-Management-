@@ -1,4 +1,4 @@
-# Obesity-Population-Health-Management-
+## Obesity-Population-Health-Management-
 
 # pip version: pip 23.0.1
 
@@ -6,8 +6,7 @@
 
 # Install pip install -r requirements.txt
 
-# or initialize the flask env
-
+initialize the flask env
 cd flask
 source bin/activate
 pip install flask
