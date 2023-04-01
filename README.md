@@ -6,7 +6,7 @@
 
 - Install pip install -r requirements.txt
 
-- initialize the through flask env
+- initialize flask env
     cd flask
     source bin/activate
     pip install flask
