@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update Patient</title>
+    <style>
+      body {
+        text-align: center;
+        background-color: rgb(179,163,105);
+        color: rgb(0,48,87);
+        font-weight: bold;
+      }
+      form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label {
+        margin-bottom: 10px;
+      }
+      input {
+        padding: 5px;
+        margin-bottom: 10px;
+        width: 300px;
+      }
+      button {
+        background-color: white; 
+        color: rgb(0,48,87); 
+        border-color: rgb(0,48,87);
+        padding: 15px;
+        margin-bottom: 15px; 
+        font-weight: bold;
+       }
+    </style>
+  </head>
+  <body>
+    <h1>Update Patient</h1>
+    <form>
+      <label for="patientId">Patient ID:</label>
+      <input type="text" id="patientId">
+      
+      <label for="height">Height:</label>
+      <input type="number" id="height">
+
+      <label for="weight">Weight:</label>
+      <input type="number" id="weight">
+
+      <label for="bloodPressure">Blood Pressure:</label>
+      <input type="number" id="bloodPressure">
+
+      <label for="otherVitals">Comments:</label>
+      <input type="text" id="otherVitals">
+
+      <button type="submit">Add Patient</button>
+      <button onclick="window.location.href='/'"> Home </button>
+    </form>
+  </body>
+</html>

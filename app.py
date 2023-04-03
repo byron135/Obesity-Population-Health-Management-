@@ -10,6 +10,13 @@ def home():
 def metrics():
     return render_template('metrics.html')
 
+@app.route("/add")
+def add():
+    return render_template('addpatient.html')
+
+@app.route("/update")
+def update():
+    return render_template('updatepatient.html')
 
 if __name__ == "__main__":
     app.run()
