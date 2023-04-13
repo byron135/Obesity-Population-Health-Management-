@@ -10,7 +10,6 @@ class JSONFolderReader:
     def read_files(self):
 
         return_data = []
-
         for filename in os.listdir(self.folder_path):
             if filename.endswith('.json'):
                 file_path = os.path.join(self.folder_path, filename)
@@ -29,5 +28,5 @@ class JSONFolderReader:
         return return_data
         
 # the example way to load all patient data into a array    
-# reader = JSONFolderReader("source")
-# reader.read_files()
+reader = JSONFolderReader("app/src/source")
+reader.read_files()
