@@ -14,16 +14,24 @@ class JSONFolderReader:
             if filename.endswith('.json'):
                 file_path = os.path.join(self.folder_path, filename)
                 fhir_data = FHIRDataHelper(file_path)
-                single_patient = {
-                    "name" : fhir_data.get_patient_name(),
-                    "age"  : fhir_data.get_patient_age(),
-                    "height" : fhir_data.get_patient_height(),
-                    "weight" : fhir_data.get_patient_weight(),
-                    "glucose" : fhir_data.get_patient_glucose()
-                }
+
+                ### Template for extracting specific information
+                # single_patient = {
+                #     "name" : fhir_data.get_patient_name(),
+                #     "age"  : fhir_data.get_patient_age(),
+                #     "race" : fhir_data.get_race(),
+                #     "height" : fhir_data.get_patient_height(),
+                #     "weight" : fhir_data.get_patient_weight(),
+                #     "glucose" : fhir_data.get_patient_glucose(),
+                #     "blood_pressure" : fhir_data.get_blood_pressure(),
+                #     "BMI" : fhir_data.get_BMI(),
+                #     "active medication" : fhir_data.get_active_medication()
+                # }
+                ###
+
+                ### Get all needed information
+                single_patient = fhir_data.get_all()
                 return_data.append(single_patient)
-                
-        print(return_data)
 
         return return_data
         
