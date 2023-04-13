@@ -25,14 +25,17 @@ class JSONFolderReader:
                 #     "glucose" : fhir_data.get_patient_glucose(),
                 #     "blood_pressure" : fhir_data.get_blood_pressure(),
                 #     "BMI" : fhir_data.get_BMI(),
-                #     "active medication" : fhir_data.get_active_medication()
+                #     "active_medication" : fhir_data.get_active_medication()
                 # }
                 ###
 
-                ### Get all needed information
+                ### Get all needed information for all the visit records
                 single_patient = fhir_data.get_all()
-                return_data.append(single_patient)
 
+                ### Get only the latest visit records related information
+                # single_patient = fhir_data.get_latest()
+
+                return_data.append(single_patient)
         return return_data
         
 # the example way to load all patient data into a array    

@@ -189,5 +189,23 @@ class FHIRDataHelper:
                     "glucose" : (glucose, "mg/dl"),
                     "blood_pressure" : (blood_pressure, "mmHg"),
                     "BMI" : (bmi, "kg/m2"),
-                    "active medication" : medications
+                    "active_medication" : medications
+                }
+    def get_latest(self):
+        """
+        Perform getting all latest patient needed information.
+
+        :rtype: dict
+        """    
+        patient_info = self.get_all()
+        return {
+                    "name" : patient_info['name'],
+                    "age"  : patient_info['age'],
+                    "race" : patient_info['race'],
+                    "height" : (patient_info['height'][0][-1] if len(patient_info['height'][0]) > 0 else '', "cm"),
+                    "weight" : (patient_info['weight'][0][-1] if len(patient_info['weight'][0]) > 0 else '', "kg"),
+                    "glucose" : (patient_info['glucose'][0][-1] if len(patient_info['glucose'][0]) > 0 else '', "mg/dl"),
+                    "blood_pressure" : (patient_info['blood_pressure'][0][-1] if len(patient_info['blood_pressure'][0]) > 0 else '', "mmHg"),
+                    "BMI" : (patient_info['BMI'][0][-1] if len(patient_info['BMI'][0]) > 0 else '', "kg/m2"),
+                    "active_medication" : patient_info['active_medication']
                 }
