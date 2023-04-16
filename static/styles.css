@@ -1,0 +1,73 @@
+body {
+    text-align: center;
+    color: rgb(0,48,87);
+    background-color: whitesmoke;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  h1 {
+    color: rgb(179,163,105);
+    letter-spacing: 3px;
+  }
+  p {
+    color: black;
+  }
+
+  form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  label {
+    margin-bottom: 10px;
+  }
+  input {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 300px;
+  }
+  button {
+    background-color: white; 
+    color: rgb(0,48,87); 
+    border-color: rgb(0,48,87);
+    padding: 15px;
+    margin-bottom: 15px; 
+    font-weight: bold;
+   }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(179,163,105); /* #333 */
+  }
+  
+  a {
+    float: left;
+  }
+  
+  a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+  
+  /* Change the link color to #111 (black) on hover */
+  
+  ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+  ul.topnav li a.active {background-color: #111;}
+
+  ul.topnav li.right {float: right;}
+
+
+
+
+  
+  
+

@@ -2,28 +2,26 @@
 <html>
   <head>
     <title>Home Page</title>
-    <style>
-      body {
-        text-align: center;
-        color: rgb(0,48,87);
-        background-color: rgb(179,163,105);
-        font-weight: bold;
-      }
-       button {
-        background-color: white; 
-        color: rgb(0,48,87); 
-        border-color: rgb(0,48,87);
-        padding: 15px;
-        margin-bottom: 15px; 
-        font-weight: bold;
-       }
-    </style>
+
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
   </head>
+
+
   <body>
-    <h1>Welcome to the Population Health Tool!</h1>
+    <h1>Obesity Population Health Tool</h1>
     <p>Group 4 - CS6440</p>
-    <button onclick="window.location.href='/metrics'">View Metrics</button><br>
+
+    <ul class = "topnav">
+      <li><a class="active" href="/">Home</a></li>
+      <li><a href="/metrics">Metrics</a></li>
+      <li><a href="/add">Add Patient</a></li>
+      <li><a href="/update">Update Patient</a></li>
+    </ul>
+
+    <!-- <button onclick="window.location.href='/metrics'">View Metrics</button><br>
     <button onclick="window.location.href='/add'"> Add Patient</button><br>
-    <button onclick="window.location.href='/update'"> Update Patient</button>
+    <button onclick="window.location.href='/update'"> Update Patient</button> -->
   </body>
 </html>

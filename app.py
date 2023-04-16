@@ -18,5 +18,9 @@ def add():
 def update():
     return render_template('updatepatient.html')
 
+@app.route("/styles.css")
+def styleSheet():
+    return app.send_static_file('styles.css')
+
 if __name__ == "__main__":
     app.run()
