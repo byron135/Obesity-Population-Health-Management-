@@ -38,7 +38,8 @@
     </script>
   <head>
     <title>Add Patient</title>
-    <style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- <style>
       body {
         text-align: center;
         background-color: rgb(179,163,105);
@@ -67,10 +68,19 @@
         margin-bottom: 15px; 
         font-weight: bold;
        }
-    </style>
+    </style> -->
   </head>
   <body>
+
     <h1>Add Patient</h1>
+
+    <ul class = "topnav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/metrics">Metrics</a></li>
+      <li><a class="active" href="/add">Add Patient</a></li>
+      <li><a href="/update">Update Patient</a></li>
+    </ul>
+
     <form>
       <label for="patientId">Patient ID:</label>
       <input type="text" id="patientId">

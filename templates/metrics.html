@@ -2,10 +2,23 @@
 <html>
   <head>
     <title>Metrics</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
     <h1>Population Metrics</h1>
+
+    <ul class = "topnav">
+      <li><a href="/">Home</a></li>
+      <li><a class="active" href="/metrics">Metrics</a></li>
+      <li><a href="/add">Add Patient</a></li>
+      <li><a href="/update">Update Patient</a></li>
+    </ul>
+
+    <br>
+
     <img src="{{url_for('static', filename = 'OverallObesityUSA.png')}}" width="600" height="500"/> <br>
     <img src="{{url_for('static', filename = 'WorldDR.png')}}" width="600" height="500"/>
+
+
   </body>
 </html>
