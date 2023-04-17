@@ -1,5 +1,41 @@
 <!DOCTYPE html>
 <html>
+  <script>
+    function addPatient() {
+
+      const patientId = document.getElementById('patientId').value;
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const race = document.getElementById('race').value;
+      const height = document.getElementById('height').value;
+      const weight = document.getElementById('weight').value;
+      const glucose = document.getElementById('glucose').value;
+      const bloodPressure = document.getElementById('bloodPressure').value;
+      const bmi = document.getElementById('BMI').value;
+      const comments = document.getElementById('comments').value;
+
+      var patient = {
+          "resourceType": "Patient",
+          "name": [
+            {
+              "use": "official",
+              "family": document.getElementById(name).value,
+              "given": [document.getElementById(name).value]
+            }
+          ],
+          "gender": "unknown",
+          "birthDate": document.getElementById(age).value,
+          "weight": [
+            {
+              "value": document.getElementById(weight).value,
+              "unit": "kg"
+            }
+          ]
+        };
+        console.log(name);
+    }
+
+    </script>
   <head>
     <title>Add Patient</title>
     <style>
@@ -38,21 +74,38 @@
     <form>
       <label for="patientId">Patient ID:</label>
       <input type="text" id="patientId">
+
+      <label for="otherVitals">Name</label>
+      <input type="text" id="name">
+
+      <label for="otherVitals">Age</label>
+      <input type="text" id="age">
+
+      <label for="otherVitals">Race</label>
+      <input type="text" id="race">
       
-      <label for="height">Height:</label>
+      <label for="height">Height (in cm):</label>
       <input type="number" id="height">
 
-      <label for="weight">Weight:</label>
+      <label for="weight">Weight (in kg):</label>
       <input type="number" id="weight">
 
-      <label for="bloodPressure">Blood Pressure:</label>
-      <input type="number" id="bloodPressure">
+      <label for="otherVitals">Glucose (in: mg/dl)</label>
+      <input type="text" id="glucose">
 
-      <label for="otherVitals">Comments:</label>
-      <input type="text" id="otherVitals">
+      <label for="bloodPressure">Blood Pressure (mmHg):</label>
+      <input type="text" id="blood pressure">
 
-      <button type="submit">Add Patient</button>
+      <label for="otherVitals">BMI (kg/m2) </label>
+      <input type="text" id="BMI">
+
+      <label for="otherVitals">Comments such as active medication:</label>
+      <input type="text" id="comments">
+
+      <button onclick="addPatient()" type="submit">Add Patient</button>
       <button onclick="window.location.href='/'"> Home </button>
     </form>
+
+    
   </body>
 </html>
