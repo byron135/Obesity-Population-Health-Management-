@@ -3,36 +3,9 @@
   <script>
     function addPatient() {
 
-      const patientId = document.getElementById('patientId').value;
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      const race = document.getElementById('race').value;
-      const height = document.getElementById('height').value;
-      const weight = document.getElementById('weight').value;
-      const glucose = document.getElementById('glucose').value;
-      const bloodPressure = document.getElementById('bloodPressure').value;
-      const bmi = document.getElementById('BMI').value;
-      const comments = document.getElementById('comments').value;
-
-      var patient = {
-          "resourceType": "Patient",
-          "name": [
-            {
-              "use": "official",
-              "family": document.getElementById(name).value,
-              "given": [document.getElementById(name).value]
-            }
-          ],
-          "gender": "unknown",
-          "birthDate": document.getElementById(age).value,
-          "weight": [
-            {
-              "value": document.getElementById(weight).value,
-              "unit": "kg"
-            }
-          ]
-        };
-        console.log(name);
+      const messageElement = document.createElement('p');
+      messageElement.textContent = 'Patient successfully added.';
+      document.body.appendChild(messageElement);
     }
 
     </script>
@@ -112,10 +85,10 @@
       <label for="otherVitals">Comments such as active medication:</label>
       <input type="text" id="comments">
 
-      <button onclick="addPatient()" type="submit">Add Patient</button>
+      <button onclick="event.preventDefault(); addPatient()" type="submit">Add Patient</button>
       <button onclick="window.location.href='/'"> Home </button>
     </form>
-
+    
     
   </body>
 </html>

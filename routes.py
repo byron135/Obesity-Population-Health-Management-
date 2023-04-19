@@ -1,10 +1,14 @@
 from flask import Flask, render_template, url_for, redirect, request
+from app.src.tools.FHIRDataHelper import *
+
 app = Flask(__name__)
 
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    fdh = FHIRDataHelper("app\src\source\Zack583_Kertzmann286_9a9986bd-e4aa-4591-90e7-6171bdc69689.json")
+    single_patient = fdh.get_all()
+    return render_template('home.html', single_patient = single_patient)
 
 @app.route("/metrics")
 def metrics():
