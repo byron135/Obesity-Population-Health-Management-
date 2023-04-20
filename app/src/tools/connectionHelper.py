@@ -1,7 +1,8 @@
 import pymssql
 import csv
 
-from Data_reader import JSONFolderReader
+# from Data_reader import JSONFolderReader
+from . import table_operation as to
 import pandas as pd
 
 server = 'health6440server.database.windows.net'
@@ -11,19 +12,19 @@ password = 'Cs6440asd'
 
 
 # DO NOT CALL - FIRST TIME ONLY
-def table_import(cursor, table_name, data):
-    for item in data:
-        cursor.execute(f"""
-            MERGE INTO {table_name} AS target
-            USING (VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)) AS source (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
-            ON target.SSN = source.SSN
-            WHEN MATCHED THEN 
-                UPDATE SET FullName = source.FullName, age = source.age, driver_license = source.driver_license, gender = source.gender, race = source.race, height = source.height, pweight = source.pweight, glucose = source.glucose, high_blood_pressure = source.high_blood_pressure, low_blood_pressure = source.low_blood_pressure, BMI = source.BMI, active_medication = source.active_medication
-            WHEN NOT MATCHED THEN
-                INSERT (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
-                VALUES (source.SSN, source.FullName, source.age, source.driver_license, source.gender, source.race, source.height, source.pweight, source.glucose, source.high_blood_pressure, source.low_blood_pressure, source.BMI, source.active_medication);
-        """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'][0], item['height'][0], item['weight'][0], item['glucose'][0], item['blood_pressure'][0][1], item['blood_pressure'][0][0], item['BMI'][0], item['active_medication']))
-    connection.commit()
+# def table_import(cursor, table_name, data):
+#     for item in data:
+#         cursor.execute(f"""
+#             MERGE INTO {table_name} AS target
+#             USING (VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)) AS source (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
+#             ON target.SSN = source.SSN
+#             WHEN MATCHED THEN 
+#                 UPDATE SET FullName = source.FullName, age = source.age, driver_license = source.driver_license, gender = source.gender, race = source.race, height = source.height, pweight = source.pweight, glucose = source.glucose, high_blood_pressure = source.high_blood_pressure, low_blood_pressure = source.low_blood_pressure, BMI = source.BMI, active_medication = source.active_medication
+#             WHEN NOT MATCHED THEN
+#                 INSERT (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
+#                 VALUES (source.SSN, source.FullName, source.age, source.driver_license, source.gender, source.race, source.height, source.pweight, source.glucose, source.high_blood_pressure, source.low_blood_pressure, source.BMI, source.active_medication);
+#         """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'][0], item['height'][0], item['weight'][0], item['glucose'][0], item['blood_pressure'][0][1], item['blood_pressure'][0][0], item['BMI'][0], item['active_medication']))
+#     connection.commit()
 # reader = JSONFolderReader("app/src/source")
 # data = reader.read_files()
 # table_import(cursor, 'patient', data)
@@ -76,10 +77,16 @@ def init():
 
 
 ### procedure ###
-init()
-df = get_df_from_csv('patient.csv')
+# init()
+# df = get_df_from_csv('patient.csv')
 
-# Then we can do filtering on the df and then use convert_to_csv to get desired csv
-# TODO
-# some filtering method
-convert_to_csv(df, 'output.csv')
+# # Then we can do filtering on the df and then use convert_to_csv to get desired csv
+# # TODO
+# # some filtering method
+
+# #example
+# df = to.filter_patients(df, 50, 'female', '25')
+
+
+# # after save to output.csv
+# convert_to_csv(df, 'output.csv')
