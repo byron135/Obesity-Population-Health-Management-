@@ -18,7 +18,11 @@ class JSONFolderReader:
                 ### Template for extracting specific information
                 # single_patient = {
                 #     "name" : fhir_data.get_patient_name(),
+                #     "driver_license" : fhir_date.get_driver_license(),
                 #     "age"  : fhir_data.get_patient_age(),
+                #     "ssn" : fhir_data.get_patient_SSN(),
+                #     "driver_license" : fhir_data.get_patient_driver_license(),
+                #     "gender" : fhir_data.get_patient_gender(),
                 #     "race" : fhir_data.get_race(),
                 #     "height" : fhir_data.get_patient_height(),
                 #     "weight" : fhir_data.get_patient_weight(),
@@ -30,14 +34,13 @@ class JSONFolderReader:
                 ###
 
                 ### Get all needed information for all the visit records
-                single_patient = fhir_data.get_all()
+                # single_patient = fhir_data.get_all()
 
                 ### Get only the latest visit records related information
-                # single_patient = fhir_data.get_latest()
+                single_patient = fhir_data.get_latest()
 
                 return_data.append(single_patient)
         return return_data
         
 # the example way to load all patient data into a array    
 reader = JSONFolderReader("app/src/source")
-reader.read_files()
