@@ -2,14 +2,13 @@ import pymssql
 import csv
 
 from Data_reader import JSONFolderReader
+import pandas as pd
 
 server = 'health6440server.database.windows.net'
 database = 'fhir_6440'
 username = 'byron135'
 password = 'Cs6440asd'
 
-connection = pymssql.connect(server, username, password, database)
-cursor = connection.cursor()
 
 # DO NOT CALL - FIRST TIME ONLY
 def table_import(cursor, table_name, data):
@@ -30,15 +29,7 @@ def table_import(cursor, table_name, data):
 # table_import(cursor, 'patient', data)
 # print("done")
 
-
-# Call this for fecthing data
-
-
-
-cursor.execute("SELECT * FROM patient")
-data = cursor.fetchall()
-
-def save_to_csv(table_name, columns, data, output_filename):
+def save_to_csv(columns, data, output_filename):
     with open(output_filename, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(columns)
@@ -64,7 +55,31 @@ def generate_insert_statements(table_name, columns, data):
         insert_statements.append(insert_statement)
     return insert_statements
 
+def get_df_from_csv(csv_file):
+    df = pd.read_csv(csv_file)
+    return df
+
+def convert_to_csv(df, csv_file):
+    df.to_csv(csv_file, index=False)
+
+def get_csv_from_server(cursor, table_name):
+    # Call this for fecthing data
+    cursor.execute(f"""SELECT * FROM {table_name}""")
+    data = cursor.fetchall()
+    columns = get_columns(cursor, table_name) 
+    save_to_csv(columns, data, table_name +'.csv')
+
+def init():
+    connection = pymssql.connect(server, username, password, database)
+    cursor = connection.cursor()
+    get_csv_from_server(cursor, 'patient')
 
 
-columns = get_columns(cursor, 'patient') 
-save_to_csv('patient', columns, data, 'output.csv')
+### procedure ###
+init()
+df = get_df_from_csv('patient.csv')
+
+# Then we can do filtering on the df and then use convert_to_csv to get desired csv
+# TODO
+# some filtering method
+convert_to_csv(df, 'output.csv')
