@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table</title>
+</head>
+<body>
+    <form method="POST">
+        <label for="category">Select a category:</label>
+        <select name="category" id="category">
+            <option value="">All categories</option>
+            {% for category in categories %}
+                {% if selected_category == category %}
+                    <option value="{{ category }}" selected>{{ category }}</option>
+                {% else %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+    {{ table|safe }}
+</body>
+</html>
