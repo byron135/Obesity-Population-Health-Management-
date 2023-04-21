@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request
+from app.src.tools import connectionHelper
 
 app = Flask(__name__)
 
@@ -22,6 +23,12 @@ def update():
 @app.route("/styles.css")
 def styleSheet():
     return app.send_static_file('styles.css')
+
+@app.route("/api/get_patient", methods=['GET'])
+def get_patient():
+    connectionHelper.init()
+    print("done")
+    return "File saved as patient.csv"
 
 if __name__ == "__main__":
     app.run()
