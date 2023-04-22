@@ -1,21 +1,49 @@
 import pymssql
 import csv
 
-# from Data_reader import JSONFolderReader
-from . import table_operation as to
+
+from Data_reader import JSONFolderReader
+# from . import table_operation as to
 import pandas as pd
 
 server = 'health6440server.database.windows.net'
 database = 'fhir_6440'
 username = 'byron135'
 password = 'Cs6440asd'
-
 connection = pymssql.connect(server, username, password, database)
+cursor = connection.cursor()
+
+# DO NOT CALL - SERVER SIDE USE ONLY
+def table_import(cursor, table_name, data):
+    for item in data:
+        cursor.execute(f"""
+            MERGE INTO {table_name} AS target
+            USING (VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)) AS source (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, smoking_status, active_medication)
+            ON target.SSN = source.SSN
+            WHEN MATCHED THEN 
+                UPDATE SET FullName = source.FullName, age = source.age, driver_license = source.driver_license, gender = source.gender, race = source.race, height = source.height, pweight = source.pweight, glucose = source.glucose, high_blood_pressure = source.high_blood_pressure, low_blood_pressure = source.low_blood_pressure, BMI = source.BMI, smoking_status = source.smoking_status, active_medication = source.active_medication
+            WHEN NOT MATCHED THEN
+                INSERT (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, smoking_status, active_medication)
+                VALUES (source.SSN, source.FullName, source.age, source.driver_license, source.gender, source.race, source.height, source.pweight, source.glucose, source.high_blood_pressure, source.low_blood_pressure, source.BMI, source.smoking_status, source.active_medication);
+        """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'][0], item['height'][0], item['weight'][0], item['glucose'][0], item['blood_pressure'][0][1], item['blood_pressure'][0][0], item['BMI'][0], item['smoking_status'], item['active_medication']))
+    connection.commit()
+# reader = JSONFolderReader("app/src/source")
+# data = reader.read_files()
+# table_import(cursor, 'patient', data)
+# print("done")
+# DO NOT CALL - SERVER SIDE USE ONLY
 
 
+def data_import(df, csv_filename, cursor, table_name, item):
+    # Append item to the DataFrame
+    new_row = pd.Series(item)
+    df = df.append(new_row, ignore_index=True)
 
-def table_import(cursor, table_name, item): # item -> data
-    # for item in data:
+    # Append item to the CSV file
+    with open(csv_filename, 'a') as f:
+        f.write(','.join(map(str, item.values())) + '\n')
+
+    # Insert or update item in the SQL table
     cursor.execute(f"""
         MERGE INTO {table_name} AS target
         USING (VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)) AS source (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
@@ -25,14 +53,10 @@ def table_import(cursor, table_name, item): # item -> data
         WHEN NOT MATCHED THEN
             INSERT (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
             VALUES (source.SSN, source.FullName, source.age, source.driver_license, source.gender, source.race, source.height, source.pweight, source.glucose, source.high_blood_pressure, source.low_blood_pressure, source.BMI, source.active_medication);
-    """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'][0], item['height'][0], item['weight'][0], item['glucose'][0], item['blood_pressure'][0][1], item['blood_pressure'][0][0], item['BMI'][0], item['active_medication']))
+    """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'], item['height'], item['weight'], item['glucose'], item['blood_pressure'][1], item['blood_pressure'][0], item['BMI'], item['active_medication']))
     connection.commit()
 
-
-# reader = JSONFolderReader("app/src/source")
-# data = reader.read_files()
-# table_import(cursor, 'patient', data)
-# print("done")
+    return df
 
 def save_to_csv(columns, data, output_filename):
     with open(output_filename, 'w', newline='', encoding='utf-8') as csvfile:
@@ -68,20 +92,24 @@ def convert_to_csv(df, csv_file):
     df.to_csv(csv_file, index=False)
 
 def get_csv_from_server(cursor, table_name):
-    # Call this for fecthing data
-    cursor.execute(f"""SELECT * FROM {table_name}""")
+    # Modify the SELECT statement to exclude the specified columns
+    cursor.execute(f"""
+        SELECT age, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication
+        FROM {table_name}
+    """)
     data = cursor.fetchall()
-    columns = get_columns(cursor, table_name) 
-    save_to_csv(columns, data, table_name +'.csv')
+    
+    # Update the columns list to match the selected columns
+    columns = ['age', 'gender', 'race', 'height', 'pweight', 'glucose', 'high_blood_pressure', 'low_blood_pressure', 'BMI', 'active_medication']
+    save_to_csv(columns, data, table_name + '.csv')
+
 
 def init():
-    # connection = pymssql.connect(server, username, password, database)
-    cursor = connection.cursor()
     get_csv_from_server(cursor, 'patient')
 
 
 ### procedure ###
-# init()
+init()
 # df = get_df_from_csv('patient.csv')
 
 # # Then we can do filtering on the df and then use convert_to_csv to get desired csv
