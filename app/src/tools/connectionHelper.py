@@ -2,7 +2,7 @@ import pymssql
 import csv
 
 
-from Data_reader import JSONFolderReader
+#from Data_reader import JSONFolderReader
 # from . import table_operation as to
 import pandas as pd
 
