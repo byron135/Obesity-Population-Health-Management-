@@ -42,15 +42,16 @@ def display_table():
         selected_gender = request.form['gender']
         selected_race = request.form['race']
         filtered_df = a
-        if (selected_gender != "All genders"):
+        if selected_gender and selected_gender != "All genders":
             filtered_df = a[a['gender'] == selected_gender]
-        filtered_df2 = filtered_df
         if (selected_race != "All races"):
-            filtered_df2 = filtered_df[filtered_df['race'] == selected_race]
-        table_html = filtered_df2.to_html(classes='table table-striped')
-        return render_template('table.html', table=table_html, genders = genders, races = races, selected_category=selected_gender)
+            if selected_race:
+                filtered_df = filtered_df[filtered_df['race'] == selected_race]
+        table_html = filtered_df.to_html(classes='table table-striped')
+        return render_template('table.html', table=table_html, genders=genders, races=races, selected_gender=selected_gender, selected_race=selected_race)
     table_html = a.to_html(classes='table table-striped')
-    return render_template('table.html', table=table_html, genders = genders, races = races, selected_category=None)
+    return render_template('table.html', table=table_html, genders=genders, races=races, selected_gender=None ,selected_race=None)
+
 
 if __name__ == "__main__":
     app.run()
