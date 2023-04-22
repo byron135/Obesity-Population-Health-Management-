@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 #GPT chatbot
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 
@@ -153,7 +153,7 @@ def generate():
             print("male")
             new_male_data[0]['Age'] = int(request.form['age'])
             new_male_data[0]['Height'] = round(int(request.form['height']) * 0.0254, 1)
-            new_male_data[0]['Weight'] = round(int(request.form['weight']) * 0.440592)
+            new_male_data[0]['Weight'] = round(int(request.form['weight']) * 0.470592)
             new_male_data[0]['FCVC'] = int(request.form['question1'])
             new_male_data[0]['CH2O'] = int(request.form['question2'])
             new_male_data[0]['FAF'] = int(request.form['question3'])
@@ -164,7 +164,8 @@ def generate():
             
             print('data')
             print(new_male_data)
-            New_Prediction = male_filtered_data.append(new_male_data)
+            new_male_df = pd.DataFrame(new_male_data, columns=male_filtered_data.columns)
+            New_Prediction = pd.concat([male_filtered_data, new_male_df])
             sc_X_new_male = StandardScaler()
             X_new_male = pd.DataFrame(sc_X_new_male.fit_transform(New_Prediction),
                     columns=['Age','Height','Weight','FCVC','CH2O','FAF',"CAEC_score",'family_history_with_overweight_score','SMOKE_score','CALC_score'])
@@ -194,7 +195,8 @@ def generate():
             new_female_data[0]['CALC_score'] = int(request.form['question7'])
             
 
-            New_Prediction = female_filtered_data.append(new_female_data)
+            new_female_df = pd.DataFrame(new_female_data, columns=female_filtered_data.columns)
+            New_Prediction = pd.concat([female_filtered_data, new_female_df])
             sc_X_new_female = StandardScaler()
             X_new_female = pd.DataFrame(sc_X_new_female.fit_transform(New_Prediction),
                     columns=['Age','Height','Weight','FCVC','CH2O','FAF',"CAEC_score",'family_history_with_overweight_score','SMOKE_score','CALC_score'])
