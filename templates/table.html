@@ -5,14 +5,25 @@
 </head>
 <body>
     <form method="POST">
-        <label for="category">Select a category:</label>
-        <select name="category" id="category">
-            <option value="">All categories</option>
-            {% for category in categories %}
-                {% if selected_category == category %}
-                    <option value="{{ category }}" selected>{{ category }}</option>
+        <label for="gender">Select a gender:</label>
+        <select name="gender" id="gender">
+            <option value="">All genders</option>
+            {% for gender in genders %}
+                {% if selected_gender == gender %}
+                    <option value="{{ gender }}" selected>{{ gender }}</option>
                 {% else %}
-                    <option value="{{ category }}">{{ category }}</option>
+                    <option value="{{ gender }}">{{ gender }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <label for="race">Select a race:</label>
+        <select name="race" id="race">
+            <option value="">All races</option>
+            {% for race in races %}
+                {% if selected_race == race %}
+                    <option value="{{ race }}" selected>{{ race }}</option>
+                {% else %}
+                    <option value="{{ race }}">{{ race }}</option>
                 {% endif %}
             {% endfor %}
         </select>

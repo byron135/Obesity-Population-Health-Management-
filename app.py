@@ -4,6 +4,8 @@ import pandas as pd
 
 app = Flask(__name__)
 a = pd.read_csv("patient.csv")
+print("hello")
+print(a.columns)
 
 @app.route("/", methods =['GET', 'POST'])
 def home():
@@ -34,21 +36,21 @@ def get_patient():
 
 @app.route('/table', methods=['GET', 'POST'])
 def display_table():
-    # get the unique values in the 'Category' column
-    categories = a['Category'].unique()
-    # handle form submission
+    genders = set(a['gender'].unique())
+    races = set(a['race'].unique())
     if request.method == 'POST':
-        # get the selected category from the form
-        selected_category = request.form['category']
-        # filter the DataFrame based on the selected category
-        filtered_df = a[a['Category'] == selected_category]
-        # convert the filtered DataFrame to an HTML table
-        table_html = filtered_df.to_html(classes='table table-striped')
-        # render the template with the table and the category options
-        return render_template('table.html', table=table_html, categories=categories, selected_category=selected_category)
-    # if no form submission, render the template with the table and the category options
+        selected_gender = request.form['gender']
+        selected_race = request.form['race']
+        filtered_df = a
+        if (selected_gender != "All genders"):
+            filtered_df = a[a['gender'] == selected_gender]
+        filtered_df2 = filtered_df
+        if (selected_race != "All races"):
+            filtered_df2 = filtered_df[filtered_df['race'] == selected_race]
+        table_html = filtered_df2.to_html(classes='table table-striped')
+        return render_template('table.html', table=table_html, genders = genders, races = races, selected_category=selected_gender)
     table_html = a.to_html(classes='table table-striped')
-    return render_template('table.html', table=table_html, categories=categories, selected_category=None)
+    return render_template('table.html', table=table_html, genders = genders, races = races, selected_category=None)
 
 if __name__ == "__main__":
     app.run()
