@@ -68,12 +68,14 @@ body {
     padding: 8px;
   }
   tr:nth-child(even) {
-    background-color: #F2F2F2;
+    background-color: #dcdcdc;
   }
   th {
     background-color: black;
     color: white;
   }
+  tr:hover {background-color: rgb(179,163,105);}
+
   
   /* Change the link color to #111 (black) on hover */
   
@@ -82,6 +84,7 @@ body {
   ul.topnav li a.active {background-color: #111;}
 
   ul.topnav li.right {float: right;}
+
 
 
 
