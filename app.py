@@ -12,9 +12,6 @@ def home():
     #html_table = a.to_html()
     return render_template('home.html')
 
-@app.route("/metrics")
-def metrics():
-    return render_template('metrics.html')
 
 @app.route("/add")
 def add():
@@ -34,7 +31,7 @@ def get_patient():
     print("done")
     return "File saved as patient.csv"
 
-@app.route('/table', methods=['GET', 'POST'])
+@app.route('/metrics', methods=['GET', 'POST'])
 def display_table():
     genders = set(a['gender'].unique())
     races = set(a['race'].unique())
@@ -50,7 +47,7 @@ def display_table():
         table_html = filtered_df.to_html(classes='table table-striped')
         return render_template('table.html', table=table_html, genders=genders, races=races, selected_gender=selected_gender, selected_race=selected_race)
     table_html = a.to_html(classes='table table-striped')
-    return render_template('table.html', table=table_html, genders=genders, races=races, selected_gender=None ,selected_race=None)
+    return render_template('metrics.html', table=table_html, genders=genders, races=races, selected_gender=None ,selected_race=None)
 
 
 if __name__ == "__main__":
