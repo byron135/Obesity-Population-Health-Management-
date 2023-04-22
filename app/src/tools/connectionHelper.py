@@ -10,21 +10,25 @@ database = 'fhir_6440'
 username = 'byron135'
 password = 'Cs6440asd'
 
+connection = pymssql.connect(server, username, password, database)
 
-# DO NOT CALL - FIRST TIME ONLY
-# def table_import(cursor, table_name, data):
-#     for item in data:
-#         cursor.execute(f"""
-#             MERGE INTO {table_name} AS target
-#             USING (VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)) AS source (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
-#             ON target.SSN = source.SSN
-#             WHEN MATCHED THEN 
-#                 UPDATE SET FullName = source.FullName, age = source.age, driver_license = source.driver_license, gender = source.gender, race = source.race, height = source.height, pweight = source.pweight, glucose = source.glucose, high_blood_pressure = source.high_blood_pressure, low_blood_pressure = source.low_blood_pressure, BMI = source.BMI, active_medication = source.active_medication
-#             WHEN NOT MATCHED THEN
-#                 INSERT (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
-#                 VALUES (source.SSN, source.FullName, source.age, source.driver_license, source.gender, source.race, source.height, source.pweight, source.glucose, source.high_blood_pressure, source.low_blood_pressure, source.BMI, source.active_medication);
-#         """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'][0], item['height'][0], item['weight'][0], item['glucose'][0], item['blood_pressure'][0][1], item['blood_pressure'][0][0], item['BMI'][0], item['active_medication']))
-#     connection.commit()
+
+
+def table_import(cursor, table_name, item): # item -> data
+    # for item in data:
+    cursor.execute(f"""
+        MERGE INTO {table_name} AS target
+        USING (VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)) AS source (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
+        ON target.SSN = source.SSN
+        WHEN MATCHED THEN 
+            UPDATE SET FullName = source.FullName, age = source.age, driver_license = source.driver_license, gender = source.gender, race = source.race, height = source.height, pweight = source.pweight, glucose = source.glucose, high_blood_pressure = source.high_blood_pressure, low_blood_pressure = source.low_blood_pressure, BMI = source.BMI, active_medication = source.active_medication
+        WHEN NOT MATCHED THEN
+            INSERT (SSN, FullName, age, driver_license, gender, race, height, pweight, glucose, high_blood_pressure, low_blood_pressure, BMI, active_medication)
+            VALUES (source.SSN, source.FullName, source.age, source.driver_license, source.gender, source.race, source.height, source.pweight, source.glucose, source.high_blood_pressure, source.low_blood_pressure, source.BMI, source.active_medication);
+    """, (item['ssn'], item['name'], item['age'], item['driver_license'], item['gender'], item['race'][0], item['height'][0], item['weight'][0], item['glucose'][0], item['blood_pressure'][0][1], item['blood_pressure'][0][0], item['BMI'][0], item['active_medication']))
+    connection.commit()
+
+
 # reader = JSONFolderReader("app/src/source")
 # data = reader.read_files()
 # table_import(cursor, 'patient', data)
@@ -71,7 +75,7 @@ def get_csv_from_server(cursor, table_name):
     save_to_csv(columns, data, table_name +'.csv')
 
 def init():
-    connection = pymssql.connect(server, username, password, database)
+    # connection = pymssql.connect(server, username, password, database)
     cursor = connection.cursor()
     get_csv_from_server(cursor, 'patient')
 
