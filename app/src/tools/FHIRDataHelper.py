@@ -183,6 +183,20 @@ class FHIRDataHelper:
 
         return medications
     
+    def get_somking_status(self):
+        """
+        Perform getting patient smoking status in all records.
+
+        :rtype: list(string)
+        """
+        smoking_status = []
+        
+        for entry in self.fhir_obj['entry']:
+            resource = entry['resource']
+            if resource['resourceType'] == 'Observation'and resource['code']['coding'][0]['code'] == "72166-2":
+                smoking_status.append(str(resource['valueCodeableConcept']['text']))
+        return smoking_status
+    
     def get_all(self):
         """
         Perform getting all patient needed information.
@@ -200,6 +214,7 @@ class FHIRDataHelper:
         glucose = []
         bmi = []
         blood_pressure = []
+        smoking_status = []
         medications = ['none']
         # loop to get other information
         for entry in self.fhir_obj['entry']:
@@ -214,6 +229,8 @@ class FHIRDataHelper:
                 blood_pressure.append((str(resource['component'][0]['valueQuantity']['value']), str(resource['component'][1]['valueQuantity']['value'])))
             elif resource['resourceType'] == 'Observation'and resource['code']['coding'][0]['code'] == "39156-5":
                 bmi.append(str(resource['valueQuantity']['value']))
+            elif resource['resourceType'] == 'Observation'and resource['code']['coding'][0]['code'] == "72166-2":
+                smoking_status.append(str(resource['valueCodeableConcept']['text']))
             elif resource['resourceType'] == 'MedicationRequest' and resource['status'] == "active":
                 medications.append(resource['medicationCodeableConcept']['text'])
         return {
@@ -228,6 +245,7 @@ class FHIRDataHelper:
                     "glucose" : (glucose, "mg/dl"),
                     "blood_pressure" : (blood_pressure, "mmHg"),
                     "BMI" : (bmi, "kg/m2"),
+                    "smoking_status" : smoking_status,
                     "active_medication" : medications
                 }
     def get_latest(self):
@@ -249,5 +267,6 @@ class FHIRDataHelper:
                     "glucose" : (patient_info['glucose'][0][-1] if len(patient_info['glucose'][0]) > 0 else '', "mg/dl"),
                     "blood_pressure" : (patient_info['blood_pressure'][0][-1] if len(patient_info['blood_pressure'][0]) > 0 else '', "mmHg"),
                     "BMI" : (patient_info['BMI'][0][-1] if len(patient_info['BMI'][0]) > 0 else '', "kg/m2"),
-                    "active_medication" : patient_info['active_medication'][-1] if len(patient_info['active_medication'][0]) > 0 else 'none'
+                    "smoking_status" : patient_info['smoking_status'][-1] if len(patient_info['smoking_status']) > 0 else 'none',
+                    "active_medication" : patient_info['active_medication'][-1] if len(patient_info['active_medication']) > 0 else 'none'
                 }
