@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Table</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
     <form method="POST">
@@ -16,6 +18,7 @@
                 {% endif %}
             {% endfor %}
         </select>
+        <br>
         <label for="race">Select a race:</label>
         <select name="race" id="race">
             <option value="">All races</option>
@@ -27,6 +30,7 @@
                 {% endif %}
             {% endfor %}
         </select>
+        <br>
         <button type="submit">Filter</button>
     </form>
     {{ table|safe }}

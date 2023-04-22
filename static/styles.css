@@ -34,6 +34,7 @@ body {
     padding: 15px;
     margin-bottom: 15px; 
     font-weight: bold;
+    border-radius: 4px;
    }
 
   ul {
@@ -55,6 +56,23 @@ body {
     padding: 14px 16px;
     text-decoration: none;
     letter-spacing: 1px;
+  }
+
+  table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: #F2F2F2;
+  }
+  th {
+    background-color: black;
+    color: white;
   }
   
   /* Change the link color to #111 (black) on hover */
