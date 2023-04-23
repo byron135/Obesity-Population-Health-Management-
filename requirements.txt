@@ -17,3 +17,4 @@ wincertstore==0.2
 zstandard==0.18.0
 scikit-learn
 openai
+gunicorn==20.1.0
