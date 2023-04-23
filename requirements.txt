@@ -16,3 +16,7 @@ typing_extensions==4.5.0
 Werkzeug==2.2.3
 wincertstore==0.2
 zstandard==0.18.0
+flask_cors==3.0.10
+scikit-learn
+openai
+gunicorn==20.1.0
