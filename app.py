@@ -135,6 +135,10 @@ def home():
 def add():
     return render_template('addpatient.html')
 
+@app.route("/graphs")
+def graphs():
+    return render_template('graphs.html')
+
 @app.route("/update")
 def update():
     return render_template('updatepatient.html')
