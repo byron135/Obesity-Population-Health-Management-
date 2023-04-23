@@ -4,46 +4,15 @@
     <title>Patient Form</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <!-- <style>
-      body {
-        text-align: center;
-        background-color: rgb(179,163,105);
-        color: rgb(0,48,87);
-        font-weight: bold;
-      }
-      form {
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      label {
-        margin-bottom: 10px;
-      }
-      input {
-        padding: 5px;
-        margin-bottom: 10px;
-        width: 300px;
-      }
-      button {
-        background-color: white; 
-        color: rgb(0,48,87); 
-        border-color: rgb(0,48,87);
-        padding: 15px;
-        margin-bottom: 15px; 
-        font-weight: bold;
-       }
-    </style> -->
+
   </head>
   <body>
-    <h1>Patient Form</h1>
+    <h1>Assess Risk</h1>
 
     <ul class = "topnav">
       <li><a href="/">Home</a></li>
       <li><a href="/metrics">Metrics</a></li>
-      <li><a href="/add">Add Patient</a></li>
-      <li><a class="active" href="/update">Update Patient</a></li>
-      <li><a class="active" href="/patientform">Patient Form</a></li>
+      <li><a class="active" href="/patientform">Assess Risk</a></li>
     </ul>
 
     <form method="post" action="/patientform">
@@ -81,14 +50,14 @@
         <label for="question2">How much water do you drink daily? required</label>
         <select id="question2" name="question2">
             <option value="" disabled selected>Select an option</option>
-            <option value="0">Less thank a liter</option>
+            <option value="0">Less than a liter</option>
             <option value="1">Between 1 and 2 liters</option>
             <option value="2">More than 2 liters</option>
         </select><br><br>
         <label for="question3">How many days do you workout per week? required</label>
         <select id="question3" name="question3">
             <option value="" disabled selected>Select an option</option>
-            <option value="0">Less thank 1 day</option>
+            <option value="0">Less than 1 day</option>
             <option value="1">1-2 days</option>
             <option value="2">2-4 days</option>
             <option value="3">More than 4 days</option>
