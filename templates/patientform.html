@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patient Form</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+  </head>
+  <body>
+    <h1>Assess Risk</h1>
+
+    <ul class = "topnav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/metrics">Metrics</a></li>
+      <li><a class="active" href="/patientform">Assess Risk</a></li>
+    </ul>
+
+    <form method="post" action="/patientform">
+        <label for="name">Patient Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="race">Race:</label>
+        <select id="race" name="race" multiple>
+          <option value="white">White</option>
+          <option value="black">Black or African American</option>
+          <option value="asian">Asian</option>
+          <option value="hispanic">Hispanic or Latino</option>
+          <option value="native">Native American or Alaska Native</option>
+          <option value="pacific">Native Hawaiian or Other Pacific Islander</option>
+        </select>
+        <label for="sex">Sex: required</label>
+        <select id="sex" name="sex">
+            <option value="" disabled selected>Select an option</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select><br><br>
+        <label for="age">Age: required</label>
+        <input type="number" id="age" name="age"><br><br>
+        <label for="weight">Weight (lbs): required</label>
+        <input type="number" id="weight" name="weight"><br><br>
+        <label for="height">Height (inches): required</label>
+        <input type="number" id="height" name="height"><br><br>
+        <label for="question1">Do you usually eat vegetables in your meals?
+            required </label>
+        <select id="question1" name="question1">
+            <option value="" disabled selected>Select an option</option>
+            <option value= "0">Never</option>
+            <option value= "1">Sometimes</option>
+            <option value= "2">Always</option>
+        </select><br><br>
+        <label for="question2">How much water do you drink daily? required</label>
+        <select id="question2" name="question2">
+            <option value="" disabled selected>Select an option</option>
+            <option value="0">Less than a liter</option>
+            <option value="1">Between 1 and 2 liters</option>
+            <option value="2">More than 2 liters</option>
+        </select><br><br>
+        <label for="question3">How many days do you workout per week? required</label>
+        <select id="question3" name="question3">
+            <option value="" disabled selected>Select an option</option>
+            <option value="0">Less than 1 day</option>
+            <option value="1">1-2 days</option>
+            <option value="2">2-4 days</option>
+            <option value="3">More than 4 days</option>
+        </select><br><br>
+        <label for="question4">Do you eat any food between meals? required</label>
+        <select id="question4" name="question4">
+            <option value="" disabled selected>Select an option</option>
+            <option value= "0">Never</option>
+            <option value= "1">Sometimes</option>
+            <option value= "2">Frequently</option>
+            <option value= "3">Always</option>
+        </select><br><br>
+        <label for="question5">Has a family member suffered from being overweight? required</label>
+        <select id="question5" name="question5">
+            <option value="" disabled selected>Select an option</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select><br><br>
+        <label for="question6">Do you smoke? required</label>
+        <select id="question6" name="question6">
+            <option value="" disabled selected>Select an option</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select><br><br>
+        <label for="question7">How often do you drink alcohol? required</label>
+        <select id="question7" name="question7">
+            <option value="" disabled selected>Select an option</option>
+            <option value= "0">Never</option>
+            <option value= "1">Sometimes</option>
+            <option value= "2">Frequently</option>
+            <option value= "3">Always</option>
+        </select><br><br>
+        <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

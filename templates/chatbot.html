@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      #messages {
+        max-height: 400px;
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Chatbot</h1>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-body">
+              <div id="messages"></div>
+              <hr>
+              <form id="message-form">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function() {
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        var messages = $('#messages');
+
+        socket.on('connect', function() {
+          socket.emit('joined', {});
+        });
+
+        socket.on('status', function(data) {
+          messages.append($('<p>').text(data));
+        });
+
+        socket.on('message', function(data) {
+          messages.append($('<p>').text('Bot: ' + data));
+        });
+
+        $('#message-form').submit(function(event) {
+          event.preventDefault();
+          var message = $('#message-input').val();
+          messages.append($('<p>').text('You: ' + message));
+          socket.emit('message', {'message': message});
+          $('#message-input').val('');
+        });
+      });
+    </script>
+  </body>
+</html>
