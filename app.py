@@ -121,7 +121,8 @@ new_male_data =  [
 
 ###############################################################################################################################################################
 
-a = pd.read_csv("patient.csv")
+#a = pd.read_csv("patient.csv")
+a = pd.read_csv("NewPatient.csv")
 
 
 @app.route("/", methods =['GET', 'POST'])
@@ -259,7 +260,7 @@ def display_table():
             if selected_race:
                 filtered_df = filtered_df[filtered_df['race'] == selected_race]
         table_html = filtered_df.to_html(classes='table table-striped')
-        return render_template('table.html', table=table_html, genders=genders, races=races, selected_gender=selected_gender, selected_race=selected_race)
+        return render_template('metrics.html', table=table_html, genders=genders, races=races, selected_gender=selected_gender, selected_race=selected_race)
     table_html = a.to_html(classes='table table-striped')
     return render_template('metrics.html', table=table_html, genders=genders, races=races, selected_gender=None ,selected_race=None)
 
