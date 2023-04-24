@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 #GPT chatbot
 
-# openai.api_key = ""
-
+#openai.api_key = "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"
+openai.api_key = os.getenv("openai")
 
 #### model ####################################################################
 Obesity_raw_data = pd.read_csv('ObesityDataSet_raw_and_data_sinthetic.csv')
@@ -167,7 +167,7 @@ def generate():
             print("male")
             new_male_data[0]['Age'] = int(request.form['age'])
             new_male_data[0]['Height'] = round(int(request.form['height']) * 0.0234, 1)
-            new_male_data[0]['Weight'] = round(int(request.form['weight']) * 0.60592)
+            new_male_data[0]['Weight'] = round(int(request.form['weight']) * 0.45)
             new_male_data[0]['FCVC'] = int(request.form['question1'])
             new_male_data[0]['CH2O'] = int(request.form['question2'])
             new_male_data[0]['FAF'] = int(request.form['question3'])
@@ -229,20 +229,20 @@ def generate():
 
         prompt = f"Patient name: {name}\nPatient diagnosis: {diagnosis}\nPatient age: {request.form['age']}\nPatient physical activity per week: {request.form['question3']}\nPatient's consuption of water: {request.form['question2']}\nPatient's consuption of vegeatables: {request.form['question1']}\nPatient BMI: {(int(request.form['weight'])/(int(request.form['height'])/12)**2 * 703)}\nPatient smoking status: {request.form['question6']}\nFamily history with obesity status: {request.form['question5']}\nPatient drinking status: {request.form['question7']}\n\nGenerate suggestions on what the patient can do based on the diagnosis given and the patient's information. Include potential solutions to these deficiencies.:"
 
-        # response = openai.Completion.create(
-        #     engine="text-davinci-002",
-        #     prompt=prompt,
-        #     max_tokens=1024,
-        #     n=1,
-        #     stop=None,
-        #     temperature=0.5,
-        # )
+        response = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt=prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
 
-        # bot_diagnosis = response.choices[0].text.strip()
+        bot_diagnosis = response.choices[0].text.strip()
         # return render_template("home.html")
         print("image path")
         print(image_path[diagnosis])
-        return render_template("results.html", name = name, diagnosis=diagnosis, image_path = image_path[diagnosis], description = None)
+        return render_template("results.html", name = name, diagnosis=diagnosis, image_path = image_path[diagnosis], description = bot_diagnosis)
         # return send_file(image_path[diagnosis], mimetype='image/png')
     else:
         return render_template('patientform.html')
