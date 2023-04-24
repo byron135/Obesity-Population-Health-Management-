@@ -217,7 +217,7 @@ def generate():
 
             last_item = len(knn.predict(X_new_female)) - 1
             diagnosis = knn.predict(X_new_female)[last_item]
-            print("THis is the diagnosis")
+            print("This is the diagnosis")
             print(diagnosis)
             # response_object['diagnosis'] = diagnosis
             # response = jsonify(response_object)
