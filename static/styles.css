@@ -11,6 +11,7 @@ body {
   }
   p {
     color: black;
+    margin: 35px;
   }
 
   form {
