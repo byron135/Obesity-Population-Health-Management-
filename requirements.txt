@@ -16,10 +16,7 @@ Werkzeug==2.2.3
 wincertstore==0.2
 zstandard==0.18.0
 flask_cors==3.0.10
-<<<<<<< HEAD
-=======
 pymssql
->>>>>>> 407d24ca8b2b1dc699ed1de5e01949d3c4d4a08a
 pandas
 scikit-learn
 openai
