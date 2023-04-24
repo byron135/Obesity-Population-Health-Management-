@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home Page</title>
+
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+  </head>
+
+
+  <body>
+    <h1>Graphs</h1>
+
+    <ul class = "topnav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/metrics">Metrics</a></li>
+      <li><a class="active" href="/graphs">Graphs</a></li>
+      <li><a href="/patientform">Assess Risk</a></li>
+    </ul>
+
+    <h1>Select Gender/Race and Measurement to Display Graph</h1>
+    <form id="graph-form" method="POST">
+      <div>
+        <label for="gender-race">Gender/Race:</label>
+        <select id="gender-race" name="gender_race">
+          <option value="Gender">Gender</option>
+          <option value="Race">Race</option>
+        </select>
+      </div>
+      <div>
+        <label for="measurement">Measurement:</label>
+        <select id="measurement" name="measurement">
+          <option value="glucose">Glucose</option>
+          <option value="diastolic">Diastolic Blood Pressure</option>
+          <option value="systolic">Systolic Blood Pressure</option>
+          <option value="activeMeds">Active Medication</option>
+        </select>
+      </div>
+      <div>
+        <input type="submit" value="Display Graph">
+      </div>
+    </form>
+    <div id="graph-container">
+      <!-- Graph image will be displayed here -->
+    </div>
+
+    {% if request.form['gender_race'] == 'Gender' %}
+      {% if request.form['measurement'] == 'diastolic' %}
+        <img src="{{ url_for('static', filename='diastolic_gender.png') }}" width="1000" height="700"/>
+      {% elif request.form['measurement'] == 'systolic' %}
+        <img src="{{ url_for('static', filename='systolic_gender.png') }}" width="1000" height="700"/>
+      {% elif request.form['measurement'] == 'glucose' %}
+        <img src="{{ url_for('static', filename='glucose_gender.png') }}" width="1000" height="700"/>
+      {% elif request.form['measurement'] == 'activeMeds' %}
+        <img src="{{ url_for('static', filename='activeMeds_gender.png') }}" width="1000" height="700"/>
+      {% endif %}
+    {% elif request.form['gender_race'] == 'Race' %}
+      {% if request.form['measurement'] == 'diastolic' %}
+        <img src="{{ url_for('static', filename='diastolic_race.png') }}" width="1000" height="700"/>
+      {% elif request.form['measurement'] == 'systolic' %}
+        <img src="{{ url_for('static', filename='systolic_race.png') }}" width="1000" height="700"/>
+      {% elif request.form['measurement'] == 'glucose' %}
+        <img src="{{ url_for('static', filename='glucose_race.png') }}" width="1000" height="700"/>
+      {% elif request.form['measurement'] == 'activeMeds' %}
+        <img src="{{ url_for('static', filename='activeMeds_race.png') }}" width="1000" height="700"/>
+      {% endif %}
+    {% endif %}
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $('#graph-form').submit(function(event) {
+          event.preventDefault(); // prevent form submission
+
+          var formData = $(this).serialize(); // get form data
+          $.ajax({
+            url: "{{ url_for('graphs') }}", // Flask endpoint
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+              // display graph image
+              var imageSrc = "{{ url_for('static', filename = '') }}" + response.image_path;
+              $('#graph-container').html(`<img src="${imageSrc}" width="600" height="500">`);
+            },
+            error: function(xhr) {
+              console.log(xhr.responseText);
+            }
+          });
+        });
+      });
+    </script> -->
+
+  </body>
+</html>

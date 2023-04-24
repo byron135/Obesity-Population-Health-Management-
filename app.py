@@ -135,6 +135,21 @@ def home():
 def add():
     return render_template('addpatient.html')
 
+@app.route("/graphs", methods=['GET', 'POST'])
+def graphs():
+    if request.method == 'POST':
+        selected_gender_race = request.form['gender_race']
+        selected_measurement = request.form['measurement']
+    return render_template('graphs.html')
+
+# def select_image(gender_race, measurement):
+#     if gender_race == 'Gender':
+#         image_name = f'{measurement.lower()}_gender.png'
+#     elif gender_race == 'Race':
+#         image_name = f'{measurement.lower()}_race.png'
+
+#     return os.path.join(app.static_folder, image_name)
+
 @app.route("/update")
 def update():
     return render_template('updatepatient.html')

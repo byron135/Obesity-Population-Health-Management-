@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Diagnosis Results for {{ name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -48,9 +50,20 @@
         margin: 20px auto;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
+
     </style>
   </head>
   <body>
+
+    <ul class = "topnav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/metrics">Metrics</a></li>
+      <li><a href="/graphs">Graphs</a></li>
+      <li><a href="/patientform">Assess Risk</a></li>
+    </ul>
+
+    <br>
+
     <div id="container">
       <h1>Diagnosis Results</h1>
       <h2>{{ diagnosis }}</h2>
