@@ -16,6 +16,8 @@ Werkzeug==2.2.3
 wincertstore==0.2
 zstandard==0.18.0
 flask_cors==3.0.10
+pymssql
+pandas
 scikit-learn
 openai
 gunicorn==20.1.0
