@@ -10,14 +10,42 @@
     <ul class = "topnav">
       <li><a href="/">Home</a></li>
       <li><a class="active" href="/metrics">Metrics</a></li>
-      <li><a href="/add">Add Patient</a></li>
-      <li><a href="/update">Update Patient</a></li>
+      <li><a href="/graphs">Graphs</a></li>
+      <li><a href="/patientform">Assess Risk</a></li>
     </ul>
 
     <br>
 
-    <img src="{{url_for('static', filename = 'OverallObesityUSA.png')}}" width="600" height="500"/> <br>
-    <img src="{{url_for('static', filename = 'WorldDR.png')}}" width="600" height="500"/>
+    <form method="POST">
+      <label for="gender">Select a gender:</label>
+      <select name="gender" id="gender">
+          <option value="">All genders</option>
+          {% for gender in genders %}
+              {% if selected_gender == gender %}
+                  <option value="{{ gender }}" selected>{{ gender }}</option>
+              {% else %}
+                  <option value="{{ gender }}">{{ gender }}</option>
+              {% endif %}
+          {% endfor %}
+      </select>
+      <br>
+      <label for="race">Select a race:</label>
+      <select name="race" id="race">
+          <option value="">All races</option>
+          {% for race in races %}
+              {% if selected_race == race %}
+                  <option value="{{ race }}" selected>{{ race }}</option>
+              {% else %}
+                  <option value="{{ race }}">{{ race }}</option>
+              {% endif %}
+          {% endfor %}
+      </select>
+      <br>
+      <button type="submit">Filter</button>
+  </form>
+  {{ table|safe }}
+
+
 
 
   </body>

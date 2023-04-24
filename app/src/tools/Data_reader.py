@@ -29,6 +29,7 @@ class JSONFolderReader:
                 #     "glucose" : fhir_data.get_patient_glucose(),
                 #     "blood_pressure" : fhir_data.get_blood_pressure(),
                 #     "BMI" : fhir_data.get_BMI(),
+                #     "smoking_status" : fhir_data.get_smoking_status(),
                 #     "active_medication" : fhir_data.get_active_medication()
                 # }
                 ###

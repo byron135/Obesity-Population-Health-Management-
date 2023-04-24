@@ -11,6 +11,7 @@ body {
   }
   p {
     color: black;
+    margin: 35px;
   }
 
   form {
@@ -34,6 +35,7 @@ body {
     padding: 15px;
     margin-bottom: 15px; 
     font-weight: bold;
+    border-radius: 4px;
    }
 
   ul {
@@ -56,6 +58,25 @@ body {
     text-decoration: none;
     letter-spacing: 1px;
   }
+
+  table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  tr:nth-child(even) {
+    background-color: #dcdcdc;
+  }
+  th {
+    background-color: black;
+    color: white;
+  }
+  tr:hover {background-color: rgb(179,163,105);}
+
   
   /* Change the link color to #111 (black) on hover */
   
@@ -64,6 +85,7 @@ body {
   ul.topnav li a.active {background-color: #111;}
 
   ul.topnav li.right {float: right;}
+
 
 
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Diagnosis Results for {{ name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+
+      #container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      h1, h2, p {
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <ul class = "topnav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/metrics">Metrics</a></li>
+      <li><a href="/graphs">Graphs</a></li>
+      <li><a href="/patientform">Assess Risk</a></li>
+    </ul>
+
+    <br>
+
+    <div id="container">
+      <h1>Diagnosis Results</h1>
+      <h2>{{ diagnosis }}</h2>
+      <p>{{ description }}</p>
+      <img src= static/OWII.png alt="hi"/>
+    </div>
+  </body>
+</html>
